@@ -1,0 +1,8 @@
+/home/ncpa/BASS_stand_demo_revision/build/CMakeFiles/rebuild_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/CMakeFiles/edit_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/libs/CMakeFiles/rebuild_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/libs/CMakeFiles/edit_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/libs/CMakeFiles/demo_lib.dir
+/home/ncpa/BASS_stand_demo_revision/build/src/CMakeFiles/rebuild_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/src/CMakeFiles/edit_cache.dir
+/home/ncpa/BASS_stand_demo_revision/build/src/CMakeFiles/drone_demo.dir

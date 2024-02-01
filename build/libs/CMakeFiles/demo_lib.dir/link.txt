@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdemo_lib.a  CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
+/usr/bin/ranlib libdemo_lib.a
