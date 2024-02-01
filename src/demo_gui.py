@@ -14,25 +14,26 @@ import tkinter.messagebox
 
 NCPA_LOGO_FILE="../pic/bass_stand_logo.png"
 
-# --Messages In/Out ID--
-# Battery
-# Current angle
+# --Messages Out
 # Tune
 # Initialize Purple
 # Scan Green
 # Motor Yellow
-# Range +/- degree
 
-MSG_IN_SIZE = 8
-MSG_OUT_SIZE = 8
-FIFO_IN = '/tmp/drone_out'
-FIFO_OUT = '/tmp/drone_in'
+# --Messages In/
+# Battery
+# Current angle
+
+MSG_IN_SIZE = 2
+MSG_OUT_SIZE = 2
+FIFO_IN = '/tmp/main_gui'
+FIFO_OUT = '/tmp/gui_main'
 
 messageIn = np.zeros((MSG_IN_SIZE,), dtype=np.float64)
 messageOut = np.zeros((MSG_OUT_SIZE,), dtype=np.float64)
 
 # read FIFO messages
-def simplePipeIn(FIFO, SIZE = 8):
+def simplePipeIn(FIFO, SIZE = 2):
     global messageIn
     with open(FIFO, 'rb', os.O_NONBLOCK) as pipe:
         while True:
@@ -44,7 +45,7 @@ def simplePipeIn(FIFO, SIZE = 8):
             time.sleep(0.001)
 
 # write FIFO messages
-def simplePipeOut(FIFO, SIZE = 8):
+def simplePipeOut(FIFO, SIZE = 2):
     with open(FIFO, 'wb', os.O_NONBLOCK) as pipe:
         print(messageOut)
         data = struct.pack('{0}d'.format(SIZE), *messageOut)
