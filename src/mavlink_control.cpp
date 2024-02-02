@@ -53,17 +53,13 @@
 
 #include "mavlink_control.h"
 
-struct gui_message{
-	double voltage; // voltage
-	double current_angle; // current angle
-	double tune;		// play tune
-	double initialize; 	// initialize
-	double scan;   // scan
-	double motor;	// motor test start 
-	double range = 90;			// scan range 
+struct status{
+	bool init = 0; // initialize flags
+	bool scan = 0;   // scan
+	bool motors = 0;	// motor test start 
 };
 
-struct stepper_message{
+struct message{
 	double msg1;
 	double msg2;
 };
@@ -146,20 +142,21 @@ top (int argc, char **argv)
 	 * Named pipe between gui and main
 	 * Named pipe between stepper motor and main
 	 */
-	gui_message gui_in;
-	gui_message gui_out;
-	stepper_message stepper_in;
-	stepper_message stepper_out;
-	detection_message detection_in;
+	message gui_in;
+	message gui_out;
+	message stepper_in;
+	message stepper_out;
+	message detection_in;
+	status control_status;
 
-	char gui_ifile_name[] = "/tmp/drone_in";
-	char gui_ofile_name[] = "/tmp/drone_out";
+	char gui_ifile_name[] = "/tmp/gui_main";
+	char gui_ofile_name[] = "/tmp/main_gui";
 	char stepper_ifile_name[] = "/tmp/motorFeedback";
 	char stepper_ofile_name[] = "/tmp/motorControl";
 	char detection_ifile_name[]= "/tmp/noah_angle";
 
-	simplePipe<double, 8> gui_simpleIn(gui_ifile_name, O_RDONLY);
-	simplePipe<double, 8> gui_simpleOut(gui_ofile_name, O_WRONLY);
+	simplePipe<double, 2> gui_simpleIn(gui_ifile_name, O_RDONLY);
+	simplePipe<double, 2> gui_simpleOut(gui_ofile_name, O_WRONLY);
 	simplePipe<double, 2> stepper_simpleIn(stepper_ifile_name, O_RDONLY);
 	simplePipe<double, 2> stepper_simpleOut(stepper_ofile_name, O_WRONLY);
 	simplePipe<double, 2> detection_simpleIn(detection_ifile_name, O_RDONLY);
@@ -169,33 +166,17 @@ top (int argc, char **argv)
 
 	while(true){
 		// FIFO read
-		int read_gui = gui_simpleIn.pipeIn((double (&)[8])gui_in);
+		int read_gui = gui_simpleIn.pipeIn((double (&)[2])gui_in);
 		int read_stepper= stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
 		int read_detection = detection_simpleIn.pipeIn((double (&)[2])detection_in);
-
-		// PIPE RECEIVED
-		printf("GUI PIPE IN:\n %f %f %f %f %f %f %f\n", 
-				gui_in.voltage,
-				gui_in.current_angle,
-				gui_in.tune,
-				gui_in.initialize,
-				gui_in.scan,
-				gui_in.motor,
-				gui_in.range);
-		printf("\nSTEPPER PIPE IN:\n %f %f\n",
-				stepper_in.msg1,
-				stepper_in.msg2);
-
-		printf("\nDETECTION PIPE IN:\n %f %f\n",
-				detection_in.detect,
-				detection_in.detect_angle);
 
 
 		// BATTERY VOLTAGE
 		auto bat = autopilot_interface.current_messages.battery_status;
-		gui_out.voltage= (double)bat.voltages[0]/1000.0;
+		gui_out.msg1 = (double)bat.voltages[0]/1000.0;
 
-		gui_out.current_angle = stepper_in.msg2;
+		// stepper current angle
+		gui_out.msg2 = stepper_in.msg2;
 
 
 		if(read_gui <=0 && read_stepper <= 0 && read_detection <=0){
@@ -203,24 +184,11 @@ top (int argc, char **argv)
 			//continue;
 		}
 		else {
-			message_handler(zylia, autopilot_interface, detection_in, gui_in, gui_out, stepper_in, stepper_out);
+			message_handler(zylia, autopilot_interface, control_status, detection_in, gui_in, gui_out, stepper_in, stepper_out);
 		}
 
-		// PIPE SEND
-		//printf("GUI PIPE OUT:\n %f %f %f %f %f %f %f\n", 
-		//		gui_out.voltage,
-		//		gui_out.current_angle,
-		//		gui_out.initialize,
-		//		gui_out.scan,
-		//		gui_out.motor,
-		//		gui_out.range,
-		//		gui_out.tune);
-		//printf("\nSTEPPER PIPE OUT:\n %f %f\n",
-		//		stepper_out.msg1,
-		//		stepper_out.msg2);
-
 		// FIFO write
-		int write_gui = gui_simpleOut.pipeOut((double (&)[8])gui_out);
+		int write_gui = gui_simpleOut.pipeOut((double (&)[2])gui_out);
 		int write_stepper= stepper_simpleOut.pipeOut((double (&)[2])stepper_out);
 		//sleep_for(milliseconds(10));
 		sleep_for(milliseconds(1000));
@@ -239,51 +207,61 @@ top (int argc, char **argv)
 //	MESSAGE HANDLER
 void message_handler(int zylia,
 		Autopilot_Interface &api, 
+		status &control_status,
 		detection_message detection_in,
 		gui_message gui_in, 
 		gui_message &gui_out,
 	 	stepper_message stepper_in,
 	 	stepper_message &stepper_out)
 {
-	// Initialize stepper
-	initialize(gui_in.initialize, 
-			stepper_in.msg1, stepper_in.msg2, 
-			gui_out.initialize, 
-			stepper_out.msg1, stepper_out.msg2);
-
-
-	// Drone Scan
-	scan(zylia,
-			detection_in.detect,
-		 	detection_in.detect_angle, 
-			gui_in.scan, gui_in.range, 
-			stepper_in.msg1, stepper_in.msg2,
-		 	gui_out.scan, gui_out.range,
-		 	stepper_out.msg1, stepper_out.msg2);
 	
-	// start or stop motor
-	motor_start(api, gui_in.motor, gui_out.motor);
-
-	// play_tune
-	//play_tune(api, gui_in.tune);
+	// handle gui message 
+	switch((uint8_t)gui_in.msg1){
+		case 0:
+			break;
+		case 1:
+			play_tune(api, 0);
+			initialize(control_status.init, 
+					stepper_in.msg1, stepper_in.msg2, 
+					stepper_out.msg1, stepper_out.msg2);
+			break;
+		case 2:
+			play_tune(api, 2);
+			if(control_status != 0){
+				scan(zylia,
+						control_status.scan,
+						detection_in.detect,
+						detection_in.detect_angle, 
+						stepper_in.msg1, stepper_in.msg2,
+						stepper_out.msg1, stepper_out.msg2);
+			}
+			break;
+		case 3:
+			play_tune(api, 2);
+			motor_start(api, control_status.motors);
+			break;
+		case default:
+			break;
+	}
 }
 
 // INITIALIZE
-void initialize(double init_in, 
+void initialize( bool init, 
 		double current_action, double current_angle, 
-		double &init_out, double &desire_angle, 
-		double &sleep_time)
+		double &desire_angle, double &sleep_time)
 {
+	// start initialize
 	printf("INITIALIZING...\n");
-	if(init_in == 1){
-		desire_angle = 361; //stepper initialize param
-		sleep_time= -1; //stepper initialize param
-		if((current_action == 1) && (current_angle == 0)){
-			init_out = 1;
+	init = 0; //indicate need to reinitialize
+	desire_angle = 361; //stepper initialize param
+	sleep_time= -1; //stepper initialize param
+	// return to the center
+	if((current_action == 0) && (current_angle == 0)){
 			desire_angle = 177;
+			sleep_time = 0.0075;
+			init = 1;
 		}
 	}
-	else init_out = 0;
 }
 
 // DRONE SCAN
@@ -343,19 +321,17 @@ void play_tune(Autopilot_Interface &api, double tune_id)
 	printf("PLAY TUNE %d\n", (int)tune_id);
 	switch((uint8_t)tune_id){
 		case 0:
-			break;
-		case 1:
 			tune = "MFT200L16<cdefgab>cdefgab.c";
 			api.play_tune(tune);
 			break;
-		case 2:
+		case 1:
 			tune = "MFL4<<<<A";
 			for (int i=0;i<3;i++){
 				api.play_tune(tune);
 				this_thread::sleep_for(chrono::milliseconds(500));
 			}
 			break;
-		case 3: 
+		case 2: 
 			tune = "MFL32<<<G";
 			api.play_tune(tune);
 			break;

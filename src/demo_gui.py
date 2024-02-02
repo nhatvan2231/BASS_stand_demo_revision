@@ -14,18 +14,19 @@ import tkinter.messagebox
 
 NCPA_LOGO_FILE="../pic/bass_stand_logo.png"
 
+# Messages -> [<id>] [<value>]
 # --Messages Out
-# Tune
-# Initialize Purple
-# Scan Green
-# Motor Yellow
+# [0] Tune
+# [1] Initialize Purple
+# [2] Scan Green
+# [3] Motor Yellow
 
 # --Messages In/
-# Battery
-# Current angle
+# [0] Battery
+# [1] Current angle
 
 MSG_IN_SIZE = 2
-MSG_OUT_SIZE = 2
+MSG_OUT_SIZE = 1
 FIFO_IN = '/tmp/main_gui'
 FIFO_OUT = '/tmp/gui_main'
 
@@ -55,47 +56,22 @@ def simplePipeOut(FIFO, SIZE = 2):
 def purple_button():   # Initialize Button
     # TODO
     play_tune(1)
-    if messageIn[3] == 0.0: # one at a time
-        messageOut[3] = 1
-        simplePipeOut(FIFO_OUT)
-        while(messageIn[3] != 1):
-            print("Waiting for initializing...\n")
-            time.sleep(0.01)
-        messageOut[3] = 0
-    else:
-        messageOut[3] = 0
+    messageOut[0] = 1;
     simplePipeOut(FIFO_OUT)
 
 def green_button(): # Scan
     # TODO
-    # 1/0 -> on/off
     play_tune(3)
-    if messageOut[4] == 1:
-        messageOut[4] = 0
-    elif messageOut[4] == 0:
-        messageOut[4] = 1
+    messageOut[0] = 2
     simplePipeOut(FIFO_OUT)
 
 def yellow_button(): # Motor Test
     # TODO
-    # 1/0 -> on/off
     play_tune(3)
-    if messageIn[5] != 1:
-        messageOut[5] = 1
-    else:
-        messageOut[5] = 0
-    simplePipeOut(FIFO_OUT)
-
-def red_button(flag): # +/- scan degree
-    # TODO
-    play_tune(3)
-    if flag:
-        messageOut[6] = messageIn[6] + 5
-    else:
-        messageOut[6] = messageIn[6] - 5
-    simplePipeOut(FIFO_OUT)
+    messageOut[0] = 3
 
 def play_tune(tune):
+    pass
     # Tune:
     # 0: button press
     # 1: initialize
@@ -155,10 +131,6 @@ frame.pack(expand=1, fill = BOTH)
 logo = PhotoImage(file = NCPA_LOGO_FILE)
 label_logo = Label(frame, image=logo, font = ("Times", 18), relief = 'flat',borderwidth = 0)
 label_logo.grid(row=0, column=0, columnspan = 3)
-
-#Displaying Scan range on GUI
-label = Label(frame, text = round(messageIn[6]), font = ("Times", 18), relief= FLAT, bg= '#FFFFFF')
-label.grid(row=4, column=1, pady=11, padx = 40)
 
 #Displaying Battery Status on GUI
 label_battery = Label(frame, text = 'BATTERY STATUS: ', font = ("Times", 16,'bold'), relief= FLAT, fg = 'red', bg = '#FFFFFF')

@@ -79,20 +79,21 @@ using namespace std::chrono;
 #include "udp_port.h"
 #include "simplePipe.h"
 
-struct gui_message;
-struct stepper_message;
-struct detection_message;
+struct status;
+struct message;
 
 int main(int argc, char **argv);
 int top(int argc, char **argv);
 
 void message_handler(int fd, 
 										Autopilot_Interface &autopilot_interface, 
+										status &control_status,
 										detection_message detection_in,
 									 	gui_message gui_in,
 	 									gui_message &gui_out,
 									 	stepper_message stepper_in,
 									 	stepper_message &stepper_out);
+
 void parse_commandline(int argc, char **argv, char *&uart_name, int &baudrate,
 		bool &use_udp, char *&udp_ip, int &udp_port);
 int zylia_setup(char zylia_path[]);
@@ -100,19 +101,20 @@ int zylia_setup(char zylia_path[]);
 // ------------------------------------------------------------------------------
 // Messages
 // ------------------------------------------------------------------------------
-// param -> initialize in, current action, current angle, initilize out, desire angle, sleep time
-void initialize(double msg_in1, double msg_in2, double msg_in3, double &msg_out1, double &msg_out2, double &msg_out3);
+// param ->  initialize status, current action, current angle,  desire angle, sleep time
+void initialize(bool &init, double msg_in1, double msg_in2, double &msg_out1, double &msg_out2);
 
 // param -> zylia, detect, detect_angle, scan in, scan degree in, current action, current angle, scan out,
 // 					 scan degree out desire angle, sleep time
 void scan(int fd,
+		bool &scan,
 	 	double msg_in1, double msg_in2, 
 		double msg_in3, double msg_in4, 
 		double msg_in5, double msg_in6,
 	 	double &msg_out1, double &msg_out2, 
 		double &msg_out3, double &msg_out4);
 
-void motor_start(Autopilot_Interface &autopilot_interface, double msg_in, double &msg_out);
+void motor_start(Autopilot_Interface &autopilot_interface, bool &motor, double msg_in, double &msg_out);
 
 void play_tune(Autopilot_Interface &autopilot_interface, double msg);
 
