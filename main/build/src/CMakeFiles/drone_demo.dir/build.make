@@ -57,27 +57,27 @@ include src/CMakeFiles/drone_demo.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/drone_demo.dir/flags.make
 
-src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o: src/CMakeFiles/drone_demo.dir/flags.make
-src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o: ../src/mavlink_control.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/drone_demo.dir/mavlink_control.cpp.o -c /home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.cpp
+src/CMakeFiles/drone_demo.dir/main.cpp.o: src/CMakeFiles/drone_demo.dir/flags.make
+src/CMakeFiles/drone_demo.dir/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/drone_demo.dir/main.cpp.o"
+	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/drone_demo.dir/main.cpp.o -c /home/ncpa/BASS_stand_demo_revision/main/src/main.cpp
 
-src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/drone_demo.dir/mavlink_control.cpp.i"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.cpp > CMakeFiles/drone_demo.dir/mavlink_control.cpp.i
+src/CMakeFiles/drone_demo.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/drone_demo.dir/main.cpp.i"
+	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_revision/main/src/main.cpp > CMakeFiles/drone_demo.dir/main.cpp.i
 
-src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/drone_demo.dir/mavlink_control.cpp.s"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.cpp -o CMakeFiles/drone_demo.dir/mavlink_control.cpp.s
+src/CMakeFiles/drone_demo.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/drone_demo.dir/main.cpp.s"
+	cd /home/ncpa/BASS_stand_demo_revision/main/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_revision/main/src/main.cpp -o CMakeFiles/drone_demo.dir/main.cpp.s
 
 # Object files for target drone_demo
 drone_demo_OBJECTS = \
-"CMakeFiles/drone_demo.dir/mavlink_control.cpp.o"
+"CMakeFiles/drone_demo.dir/main.cpp.o"
 
 # External object files for target drone_demo
 drone_demo_EXTERNAL_OBJECTS =
 
-src/drone_demo: src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o
+src/drone_demo: src/CMakeFiles/drone_demo.dir/main.cpp.o
 src/drone_demo: src/CMakeFiles/drone_demo.dir/build.make
 src/drone_demo: libs/libdemo_lib.a
 src/drone_demo: src/CMakeFiles/drone_demo.dir/link.txt

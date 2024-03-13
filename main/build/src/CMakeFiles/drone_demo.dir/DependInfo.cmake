@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.cpp" "/home/ncpa/BASS_stand_demo_revision/main/build/src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o"
+  "/home/ncpa/BASS_stand_demo_revision/main/src/main.cpp" "/home/ncpa/BASS_stand_demo_revision/main/build/src/CMakeFiles/drone_demo.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

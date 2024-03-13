@@ -2,6 +2,7 @@
 
 echo "Relocating executable to bin"
 mkdir -p $HOME/.local/bin
+
 cp main/build/src/drone_demo $HOME/.local/bin
 cp main/build/src/detection $HOME/.local/bin
 cp FIFO_DOA/dir_of_arr $HOME/.local/bin

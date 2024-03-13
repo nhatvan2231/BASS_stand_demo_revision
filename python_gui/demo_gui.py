@@ -12,7 +12,7 @@ import struct
 #from control_test import *
 import tkinter.messagebox
 
-NCPA_LOGO_FILE="../pic/bass_stand_logo.png"
+NCPA_LOGO_FILE="bass_stand_logo.png"
 
 # Messages -> [<id>] [<value>]
 # --Messages Out

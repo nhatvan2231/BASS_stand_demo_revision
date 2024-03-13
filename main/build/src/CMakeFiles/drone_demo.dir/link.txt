@@ -1,1 +1,1 @@
-/usr/bin/c++   -pthread   CMakeFiles/drone_demo.dir/mavlink_control.cpp.o  -o drone_demo  ../libs/libdemo_lib.a 
+/usr/bin/c++   -pthread   CMakeFiles/drone_demo.dir/main.cpp.o  -o drone_demo  ../libs/libdemo_lib.a 

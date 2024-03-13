@@ -167,32 +167,32 @@ detection.cpp.s:
 	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/detection.cpp.s
 .PHONY : detection.cpp.s
 
-mavlink_control.o: mavlink_control.cpp.o
+main.o: main.cpp.o
 
-.PHONY : mavlink_control.o
+.PHONY : main.o
 
 # target to build an object file
-mavlink_control.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.o
-.PHONY : mavlink_control.cpp.o
+main.cpp.o:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-mavlink_control.i: mavlink_control.cpp.i
+main.i: main.cpp.i
 
-.PHONY : mavlink_control.i
+.PHONY : main.i
 
 # target to preprocess a source file
-mavlink_control.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.i
-.PHONY : mavlink_control.cpp.i
+main.cpp.i:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-mavlink_control.s: mavlink_control.cpp.s
+main.s: main.cpp.s
 
-.PHONY : mavlink_control.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-mavlink_control.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/mavlink_control.cpp.s
-.PHONY : mavlink_control.cpp.s
+main.cpp.s:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -207,9 +207,9 @@ help:
 	@echo "... detection.o"
 	@echo "... detection.i"
 	@echo "... detection.s"
-	@echo "... mavlink_control.o"
-	@echo "... mavlink_control.i"
-	@echo "... mavlink_control.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

@@ -1,4 +1,4 @@
-add_executable(drone_demo mavlink_control.cpp mavlink_control.h)
+add_executable(drone_demo main.cpp main.h)
 add_executable(detection detection.cpp detection.h)
 
 

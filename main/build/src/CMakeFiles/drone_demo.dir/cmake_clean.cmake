@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/drone_demo.dir/mavlink_control.cpp.o"
+  "CMakeFiles/drone_demo.dir/main.cpp.o"
   "drone_demo"
   "drone_demo.pdb"
 )

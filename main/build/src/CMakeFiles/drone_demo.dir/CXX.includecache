@@ -814,11 +814,11 @@ mavlink_types.h
 mavlink_helpers.h
 ../libs/mavlink/include/mavlink/v2.0/mavlink_helpers.h
 
-/home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.cpp
-mavlink_control.h
-/home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.h
+/home/ncpa/BASS_stand_demo_revision/main/src/main.cpp
+main.h
+/home/ncpa/BASS_stand_demo_revision/main/src/main.h
 
-/home/ncpa/BASS_stand_demo_revision/main/src/mavlink_control.h
+/home/ncpa/BASS_stand_demo_revision/main/src/main.h
 iostream
 -
 stdio.h

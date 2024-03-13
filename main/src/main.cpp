@@ -1,61 +1,10 @@
-/****************************************************************************
- *
- *   Copyright (c) 2014 MAVlink Development Team. All rights reserved.
- *   Author: Trent Lukaczyk, <aerialhedgehog@gmail.com>
- *           Jaycee Lock,    <jaycee.lock@gmail.com>
- *           Lorenz Meier,   <lm@inf.ethz.ch>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- * 3. Neither the name PX4 nor the names of its contributors may be
- *    used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
- * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
- * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- ****************************************************************************/
-
-/**
- * @file mavlink_control.cpp
- *
- * @brief An example offboard control process via mavlink
- *
- * This process connects an external MAVLink UART device to send an receive data
- *
- * @author Trent Lukaczyk, <aerialhedgehog@gmail.com>
- * @author Jaycee Lock,    <jaycee.lock@gmail.com>
- * @author Lorenz Meier,   <lm@inf.ethz.ch>
- *
- */
-
-
-
 //   Includes
 
-#include "mavlink_control.h"
+#include "main.h"
 
 
 //   TOP
-	int 
+int
 top(int argc, char **argv)
 {
 	//   PARSE THE COMMANDS
@@ -96,7 +45,6 @@ top(int argc, char **argv)
 		port = new Serial_Port(uart_name, baudrate);
 	}
 
-
 	Autopilot_Interface autopilot_interface(port);
 
 	/*
@@ -114,65 +62,84 @@ top(int argc, char **argv)
 	/*
 	 * Start the port and autopilot_interface
 	 * This is where the port is opened, and read and write threads are started.
-	 */
+	*/
 	port->start();
 	autopilot_interface.start();
+	main_control(autopilot_interface);
+	//   THREAD and PORT SHUTDOWN
+	autopilot_interface.stop();
+	port->stop();
+	delete port;
 
-	// START ZYLIA
+	//   DONE
+	return 0;
+
+}
+
+int main_control(Autopilot_Interface &api){
+
+	// START ZYLIA -> for LED only
 	// Set color: icotl(zylia, 0x00000205, <array, 0xBGR>)
 	char zylia_path[] = "/dev/zylia-zm-1_0";
 	int zylia = zylia_setup(zylia_path);
+	int led_red[1] = {0x0000FF};
+	int led_green[1] = {0x00FF00};
+	int led_white[1] = {0xFFFFFF};
+
 
 	/* START NAMED PIPES
 	 * Named pipe between gui and main
 	 * Named pipe between stepper motor and main
+	 * Named pipe out to detection
 	 */
-
-	uint8_t cur_state = 0;
-	uint8_t next_state = 0;
-	bool write = false;
-	sys_status status;
-
-	uint16_t gui_in; // Initialzie, scan, motor
-	double gui_out[2]; // battery, current angle
-	double stepper_in[2]; // current angle, current action
-	double stepper_out[3]; // desire angle, sleep time, hold time
-	bool detec_in = false; // flag
-	bool detec_out = true; // flag
-
+	// FIFO Paths
 	char gui_ifile_name[] = "/tmp/gui_main";
 	char gui_ofile_name[] = "/tmp/main_gui";
 	char stepper_ifile_name[] = "/tmp/motorFeedback";
 	char stepper_ofile_name[] = "/tmp/motorControl";
-	char detection_ifile_name[] = "/tmp/detection_main";
+	//char detection_ifile_name[] = "/tmp/detection_main";
 	char detection_ofile_name[] = "/tmp/main_detection";
 
+	// Pipe In/Out messages
+	uint16_t gui_in; // Initialzie, scan, motor
+	double gui_out[2]; // battery, current angle
+	double stepper_in[2]; // current angle, current action
+	double stepper_out[3]; // desire angle, sleep time, hold time
+	//bool detec_in = false; // flag
+	bool detec_out = true; // flag
+
+	// Setup
 	simplePipe<uint16_t, 1> gui_simpleIn(gui_ifile_name, O_RDONLY);
 	simplePipe<double, 2> gui_simpleOut(gui_ofile_name, O_WRONLY);
 	simplePipe<double, 2> stepper_simpleIn(stepper_ifile_name, O_RDONLY);
 	simplePipe<double, 3> stepper_simpleOut(stepper_ofile_name, O_WRONLY);
-
-	simplePipe<bool, 1> detection_simpleIn(detection_ifile_name, O_RDONLY);
+	//simplePipe<bool, 1> detection_simpleIn(detection_ifile_name, O_RDONLY);
 	simplePipe<bool, 1> detection_simpleOut(detection_ofile_name, O_WRONLY);
+	bool write = false; // Pipe write flag
 
-	// zylia LED
-	int led_red[1] = {0x0000FF};
-	int led_green[1] = {0x00FF00};
-	int led_white[1] = {0xFFFFFF};
+	// Stepper Pipe Out
+	double stepper_init[3] = {361, -1, 0}; 
+	double stepper_mid[3] = {177, 0.0075, 1}; 
+	double stepper_right[3] = {132, 0.0075, 1}; 
+	double stepper_left[3] = {222, 0.0075, 1}; 
+
+	// FSM 
+	uint8_t cur_state = 0;
+	uint8_t next_state = 0;
+	sys_status status;
 
 
 	printf("\nDRONE DEMO START\n");
 
 	while(true){
 		// FIFO read
-
 		while(true){
 			int read_stepper = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
 			int read_gui = gui_simpleIn.pipeIn((uint16_t (&)[1])gui_in);
-			int read_detection = detection_simpleIn.pipeIn((bool (&)[1])detec_in);
+			//int read_detection = detection_simpleIn.pipeIn((bool (&)[1])detec_in);
 			if(read_gui > 0){
+				status = gui_message_handler(api, gui_in, status, cur_state);
 				//printf("Out: %d %d %d\n", status.init, status.scan, status.motor);
-				status = gui_message_handler(autopilot_interface, gui_in, status, cur_state);
 				break;
 			}
 			if(read_stepper > 0 && stepper_in[1] <= 0) {
@@ -185,39 +152,29 @@ top(int argc, char **argv)
 
 
 		//printf("Current angle: %f Current action: %f\n", stepper_in[0], stepper_in[1]);
-
 		switch(cur_state){
 			case 0:
 				if (!status.init) break;
 				printf("INITIALIZING...\n");
 				ioctl(zylia, 0x00000205, led_white);
-				stepper_out[0] = 361;
-				stepper_out[1] = -1;
-				stepper_out[2] = 0;
+				std::copy(std::begin(stepper_init), std::end(stepper_init), std::begin(stepper_out));
 				detec_out = false;
 				write = true;
-				//motor_start(autopilot_interface, status.motor);
-				//printf("Transition 0 to 1\n");
 				next_state = 1;
 				break;
 			case 1:
 				printf("GOTO MIDDLE\n");
-				stepper_out[0] = 177;
-				stepper_out[1] = 0.0075;
-				stepper_out[2] = 1;
+				std::copy(std::begin(stepper_mid), std::end(stepper_mid), std::begin(stepper_out));
 				detec_out = false;
 				status.init = false;
 				write = true;
-				//printf("Transition 1 to 2\n");
 				next_state = 2;
 				break;
 			case 2:
 				if (!status.scan) break;
 				printf("GOTO RIGHT\n");
 				ioctl(zylia, 0x00000205, led_green);
-				stepper_out[0] = 177-45;
-				stepper_out[1] = 0.0075;
-				stepper_out[2] = 1;
+				std::copy(std::begin(stepper_right), std::end(stepper_right), std::begin(stepper_out));
 				detec_out = true;
 				write = true;
 				next_state = 3;
@@ -226,9 +183,7 @@ top(int argc, char **argv)
 				if (!status.scan) break;
 				printf("GOTO LEFT\n");
 				ioctl(zylia, 0x00000205, led_green);
-				stepper_out[0] = 177 + 45;
-				stepper_out[1] = 0.0075;
-				stepper_out[2] = 1;
+				std::copy(std::begin(stepper_left), std::end(stepper_left), std::begin(stepper_out));
 				detec_out = true;
 				write = true;
 				next_state = 2;
@@ -239,37 +194,31 @@ top(int argc, char **argv)
 
 		// FIFO write
 		if(write){
+			// Write to stepper
 			int write_bytes = stepper_simpleOut.pipeOut((double (&)[3])stepper_out);
 			while(write_bytes <= 0){
 				write_bytes = stepper_simpleOut.pipeOut((double (&)[3])stepper_out);
 				printf("Reattempting to write\n");
 			}
 
+			// Write to detection
 			write_bytes = detection_simpleOut.pipeOut((bool (&)[1])detec_out); 
 			while(write_bytes <= 0){
 				write_bytes = detection_simpleOut.pipeOut((bool (&)[1])detec_out); 
 				printf("Reattempting to write\n");
 			}
-			
 			write = false;
 			//printf("Writing: %f %f %f\n", stepper_out[0], stepper_out[1], stepper_out[2]);
 		}
 		usleep(1000);
 	}
-
-
-	//   THREAD and PORT SHUTDOWN
-	autopilot_interface.stop();
-	port->stop();
-
-	delete port;
-
-	//   DONE
+	
 	return 0;
 
-}
+};
 
 
+// Handle gui interface
 sys_status gui_message_handler(Autopilot_Interface &api, uint16_t gui_in, sys_status cur_status, uint8_t &cur_state){
         sys_status status = cur_status;
         switch(gui_in){
@@ -286,7 +235,7 @@ sys_status gui_message_handler(Autopilot_Interface &api, uint16_t gui_in, sys_st
                         play_tune(api, 1);
                         status.scan = !status.scan;
                         if(status.scan == false) cur_state = 1;
-                        printf("SCAN: %d\n", status.scan);
+                        //printf("SCAN: %d\n", status.scan);
                         break;
                 case 3:
                         if (cur_state < 2) break;
