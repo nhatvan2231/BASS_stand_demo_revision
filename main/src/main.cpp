@@ -376,6 +376,7 @@ int zylia_setup(char zylia_path[]){
 	int fd = open(zylia_path, O_RDWR | O_NONBLOCK);
 	while (fd < 0){
 		printf("Waiting for Zylia...\n");
+		fd = open(zylia_path, O_RDWR | O_NONBLOCK);
 		sleep_for(milliseconds(10));
 	}
 

@@ -26,13 +26,8 @@
 using namespace std;
 using namespace std::chrono;
 
-<<<<<<< HEAD
 const char array_geometry[]="/home/ncpa/BASS_stand_demo_revision/FIFO_DOA/array_geometry.dat";
 const char quiet_freqs[]="/home/ncpa/BASS_stand_demo_revision/FIFO_DOA/quiet_freqs/0040_quiet_freqs.dat";
-=======
-const char array_geometry[]="/home/ncpa/FIFO_DOA/array_geometry.dat";
-const char quiet_freqs[]="/home/ncpa/FIFO_DOA/quiet_freqs/0040_quiet_freqs.dat";
->>>>>>> 234d7ece0fd9ed5e0feac18a582b1baa89fc334f
 
 const double sampling_freq = 48000.0;		// Hz
 const double lo_freq = 100.0;					// Hz

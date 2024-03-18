@@ -46,6 +46,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "libs/CMakeFiles/demo_lib.dir/DependInfo.cmake"
-  "src/CMakeFiles/detection.dir/DependInfo.cmake"
-  "src/CMakeFiles/drone_demo.dir/DependInfo.cmake"
+  "src/CMakeFiles/demo_detection.dir/DependInfo.cmake"
+  "src/CMakeFiles/demo_main.dir/DependInfo.cmake"
   )

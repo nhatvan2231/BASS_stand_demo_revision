@@ -124,30 +124,30 @@ demo_lib/fast:
 .PHONY : demo_lib/fast
 
 #=============================================================================
-# Target rules for targets named detection
+# Target rules for targets named demo_detection
 
 # Build rule for target.
-detection: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 detection
-.PHONY : detection
+demo_detection: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 demo_detection
+.PHONY : demo_detection
 
 # fast build rule for target.
-detection/fast:
-	$(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/build
-.PHONY : detection/fast
+demo_detection/fast:
+	$(MAKE) -f src/CMakeFiles/demo_detection.dir/build.make src/CMakeFiles/demo_detection.dir/build
+.PHONY : demo_detection/fast
 
 #=============================================================================
-# Target rules for targets named drone_demo
+# Target rules for targets named demo_main
 
 # Build rule for target.
-drone_demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 drone_demo
-.PHONY : drone_demo
+demo_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 demo_main
+.PHONY : demo_main
 
 # fast build rule for target.
-drone_demo/fast:
-	$(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/build
-.PHONY : drone_demo/fast
+demo_main/fast:
+	$(MAKE) -f src/CMakeFiles/demo_main.dir/build.make src/CMakeFiles/demo_main.dir/build
+.PHONY : demo_main/fast
 
 # Help Target
 help:
@@ -158,8 +158,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... demo_lib"
-	@echo "... detection"
-	@echo "... drone_demo"
+	@echo "... demo_detection"
+	@echo "... demo_main"
 .PHONY : help
 
 

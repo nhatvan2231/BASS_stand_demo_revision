@@ -12,11 +12,7 @@ import struct
 #from control_test import *
 import tkinter.messagebox
 
-<<<<<<< HEAD:python_gui/gui_demo.py
 NCPA_LOGO_FILE=os.environ["HOME"] + "/BASS_stand_demo_revision/python_gui/bass_stand_logo.png"
-=======
-NCPA_LOGO_FILE="bass_stand_logo.png"
->>>>>>> 234d7ece0fd9ed5e0feac18a582b1baa89fc334f:python_gui/demo_gui.py
 
 # Messages -> [<id>] [<value>]
 # --Messages Out

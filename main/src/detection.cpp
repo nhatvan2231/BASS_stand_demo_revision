@@ -3,11 +3,7 @@
 int main(){
 
         char detec_ifile_name[] = "/tmp/main_detection";
-<<<<<<< HEAD
 	//char detec_ofile_name[] = "/tmp/detection_main";
-=======
-	char detec_ofile_name[] = "/tmp/detection_main";
->>>>>>> 234d7ece0fd9ed5e0feac18a582b1baa89fc334f
 
 	char noah_ifile_name[] = "/tmp/noah_angle";
 
@@ -26,11 +22,7 @@ int main(){
         simplePipe<double, 3> stepper_simpleOut(stepper_ofile_name, O_WRONLY);
 
         simplePipe<bool, 1> detec_simpleIn(detec_ifile_name, O_RDONLY);
-<<<<<<< HEAD
         //simplePipe<bool, 1> detec_simpleOut(detec_ofile_name, O_WRONLY);
-=======
-        simplePipe<bool, 1> detec_simpleOut(detec_ofile_name, O_WRONLY);
->>>>>>> 234d7ece0fd9ed5e0feac18a582b1baa89fc334f
 
 
 	int read_bytes = 0;
@@ -63,8 +55,9 @@ int main(){
 			if(noah_in[0] == -42069) {
 				// Save position
 				read_bytes = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
-				while(read_bytes <=0)
+				while(read_bytes <=0){
 					read_bytes = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
+				}
 				ioctl(fd, setcolor, led_yellow);
 				printf("Current Angle: %f\n", stepper_in[0]);
 				continue;
@@ -81,19 +74,11 @@ int main(){
 			while(write_bytes <=0){
                         	write_bytes = stepper_simpleOut.pipeOut((double (&)[3])stepper_out);
 			}
-<<<<<<< HEAD
                         //write_bytes= detec_simpleOut.pipeOut((bool (&)[1])detec_out);
 			//while(write_bytes <= 0){
                         //	write_bytes = detec_simpleOut.pipeOut((bool (&)[1])detec_out);
 			//}
-=======
-                        write_bytes= detec_simpleOut.pipeOut((bool (&)[1])detec_out);
-			while(write_bytes <= 0){
-                        	write_bytes = detec_simpleOut.pipeOut((bool (&)[1])detec_out);
-			}
->>>>>>> 234d7ece0fd9ed5e0feac18a582b1baa89fc334f
 		}
-
 	}
 }
 

@@ -1,0 +1,1 @@
+/usr/bin/c++   -pthread   CMakeFiles/demo_detection.dir/detection.cpp.o  -o demo_detection  ../libs/libdemo_lib.a 

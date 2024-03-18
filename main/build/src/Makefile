@@ -111,34 +111,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/detection.dir/rule:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/detection.dir/rule
-.PHONY : src/CMakeFiles/detection.dir/rule
+src/CMakeFiles/demo_detection.dir/rule:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_detection.dir/rule
+.PHONY : src/CMakeFiles/demo_detection.dir/rule
 
 # Convenience name for target.
-detection: src/CMakeFiles/detection.dir/rule
+demo_detection: src/CMakeFiles/demo_detection.dir/rule
 
-.PHONY : detection
+.PHONY : demo_detection
 
 # fast build rule for target.
-detection/fast:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/build
-.PHONY : detection/fast
+demo_detection/fast:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_detection.dir/build.make src/CMakeFiles/demo_detection.dir/build
+.PHONY : demo_detection/fast
 
 # Convenience name for target.
-src/CMakeFiles/drone_demo.dir/rule:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/drone_demo.dir/rule
-.PHONY : src/CMakeFiles/drone_demo.dir/rule
+src/CMakeFiles/demo_main.dir/rule:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_main.dir/rule
+.PHONY : src/CMakeFiles/demo_main.dir/rule
 
 # Convenience name for target.
-drone_demo: src/CMakeFiles/drone_demo.dir/rule
+demo_main: src/CMakeFiles/demo_main.dir/rule
 
-.PHONY : drone_demo
+.PHONY : demo_main
 
 # fast build rule for target.
-drone_demo/fast:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/build
-.PHONY : drone_demo/fast
+demo_main/fast:
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_main.dir/build.make src/CMakeFiles/demo_main.dir/build
+.PHONY : demo_main/fast
 
 detection.o: detection.cpp.o
 
@@ -146,7 +146,7 @@ detection.o: detection.cpp.o
 
 # target to build an object file
 detection.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/detection.cpp.o
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_detection.dir/build.make src/CMakeFiles/demo_detection.dir/detection.cpp.o
 .PHONY : detection.cpp.o
 
 detection.i: detection.cpp.i
@@ -155,7 +155,7 @@ detection.i: detection.cpp.i
 
 # target to preprocess a source file
 detection.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/detection.cpp.i
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_detection.dir/build.make src/CMakeFiles/demo_detection.dir/detection.cpp.i
 .PHONY : detection.cpp.i
 
 detection.s: detection.cpp.s
@@ -164,7 +164,7 @@ detection.s: detection.cpp.s
 
 # target to generate assembly for a file
 detection.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/detection.dir/build.make src/CMakeFiles/detection.dir/detection.cpp.s
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_detection.dir/build.make src/CMakeFiles/demo_detection.dir/detection.cpp.s
 .PHONY : detection.cpp.s
 
 main.o: main.cpp.o
@@ -173,7 +173,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.o
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_main.dir/build.make src/CMakeFiles/demo_main.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -182,7 +182,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.i
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_main.dir/build.make src/CMakeFiles/demo_main.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -191,7 +191,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/drone_demo.dir/build.make src/CMakeFiles/drone_demo.dir/main.cpp.s
+	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f src/CMakeFiles/demo_main.dir/build.make src/CMakeFiles/demo_main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -202,8 +202,8 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... detection"
-	@echo "... drone_demo"
+	@echo "... demo_detection"
+	@echo "... demo_main"
 	@echo "... detection.o"
 	@echo "... detection.i"
 	@echo "... detection.s"
