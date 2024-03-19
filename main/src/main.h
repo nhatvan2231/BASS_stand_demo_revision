@@ -33,6 +33,7 @@ struct sys_status{
 	bool init = false;
 	bool scan = false;
 	bool motor = false;
+	bool detec = false;
 };
 
 int main(int argc, char **argv);

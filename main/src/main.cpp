@@ -97,24 +97,27 @@ int main_control(Autopilot_Interface &api){
 	char gui_ofile_name[] = "/tmp/main_gui";
 	char stepper_ifile_name[] = "/tmp/motorFeedback";
 	char stepper_ofile_name[] = "/tmp/motorControl";
+	char noah_ifile_name[] = "/tmp/noah_angle";
 	//char detection_ifile_name[] = "/tmp/detection_main";
-	char detection_ofile_name[] = "/tmp/main_detection";
+	//char detection_ofile_name[] = "/tmp/main_detection";
 
 	// Pipe In/Out messages
 	uint16_t gui_in; // Initialzie, scan, motor
 	double gui_out[2]; // battery, current angle
 	double stepper_in[2]; // current angle, current action
 	double stepper_out[3]; // desire angle, sleep time, hold time
+	double noah_in[2];
 	//bool detec_in = false; // flag
-	bool detec_out = true; // flag
+	//bool detec_out = true; // flag
 
 	// Setup
 	simplePipe<uint16_t, 1> gui_simpleIn(gui_ifile_name, O_RDONLY);
 	simplePipe<double, 2> gui_simpleOut(gui_ofile_name, O_WRONLY);
 	simplePipe<double, 2> stepper_simpleIn(stepper_ifile_name, O_RDONLY);
 	simplePipe<double, 3> stepper_simpleOut(stepper_ofile_name, O_WRONLY);
+	simplePipe<double, 2> noah_simpleIn(noah_ifile_name, O_RDONLY);
 	//simplePipe<bool, 1> detection_simpleIn(detection_ifile_name, O_RDONLY);
-	simplePipe<bool, 1> detection_simpleOut(detection_ofile_name, O_WRONLY);
+	//simplePipe<bool, 1> detection_simpleOut(detection_ofile_name, O_WRONLY);
 	bool write = false; // Pipe write flag
 
 	// Stepper Pipe Out
@@ -136,11 +139,17 @@ int main_control(Autopilot_Interface &api){
 		while(true){
 			int read_stepper = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
 			int read_gui = gui_simpleIn.pipeIn((uint16_t (&)[1])gui_in);
+			int read_detec = noah_simpleIn.pipeIn((double (&)[2])noah_in);
+
 			//int read_detection = detection_simpleIn.pipeIn((bool (&)[1])detec_in);
 			if(read_gui > 0){
 				status = gui_message_handler(api, gui_in, status, cur_state);
 				//printf("Out: %d %d %d\n", status.init, status.scan, status.motor);
 				break;
+			}
+			if(read_detec > 0 && status.detect){
+				//TODO
+				signal_detection(noah_simpleIn, noah_in, stepper_in[0], stepper_out, zylia);
 			}
 			if(read_stepper > 0 && stepper_in[1] <= 0) {
 				printf("Goal reach\n");
@@ -175,7 +184,6 @@ int main_control(Autopilot_Interface &api){
 				printf("GOTO RIGHT\n");
 				ioctl(zylia, 0x00000205, led_green);
 				std::copy(std::begin(stepper_right), std::end(stepper_right), std::begin(stepper_out));
-				detec_out = true;
 				write = true;
 				next_state = 3;
 				break;
@@ -184,7 +192,6 @@ int main_control(Autopilot_Interface &api){
 				printf("GOTO LEFT\n");
 				ioctl(zylia, 0x00000205, led_green);
 				std::copy(std::begin(stepper_left), std::end(stepper_left), std::begin(stepper_out));
-				detec_out = true;
 				write = true;
 				next_state = 2;
 				break;
@@ -234,6 +241,7 @@ sys_status gui_message_handler(Autopilot_Interface &api, uint16_t gui_in, sys_st
                         if (cur_state < 2) break;
                         play_tune(api, 1);
                         status.scan = !status.scan;
+			status.detec = !status.detec;
                         if(status.scan == false) cur_state = 1;
                         //printf("SCAN: %d\n", status.scan);
                         break;
