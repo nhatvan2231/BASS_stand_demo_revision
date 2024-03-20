@@ -46,16 +46,20 @@ std::string Messenger::send_time()
 	//open_socket();
 
 	// send to server
-	char message[1024];
-	sprintf(message, "T,%s", timestamp.c_str());
+	//char message[1024];
+	//sprintf(message, "T,%s", timestamp.c_str());
 	//printf("send_detect() : message = '%s'\n", message);
+	simplePipe<double, 2> tmp(fifo_file, O_WRONLY);
+	double message[2] = {-42069, -42069};
+	size_t chars_sent = tmp.pipeOut(message);
+	//tmp.pipeOut((double (&)[2])message);
 
-	size_t chars_sent = send( sock, message, strlen(message), 0 );
-	if (chars_sent != strlen(message)) {
-		//printf("send_detect() : Tried to send %ld chars, actually sent %ld\n", strlen(message), chars_sent);
-	} else {
-		//printf("send_detect() : successfully sent %ld chars\n", chars_sent);
-	}
+//	size_t chars_sent = send( sock, message, strlen(message), 0 );
+//	if (chars_sent != strlen(message)) {
+//		//printf("send_detect() : Tried to send %ld chars, actually sent %ld\n", strlen(message), chars_sent);
+//	} else {
+//		//printf("send_detect() : successfully sent %ld chars\n", chars_sent);
+//	}
     return timestamp;
 }
 
@@ -75,9 +79,9 @@ std::string Messenger::send_detect()
 	//size_t chars_sent = send( sock, message, strlen(message), 0 );
 	//size_t chars_sent = ( sock, message, strlen(message), 0 );
 	simplePipe<double, 2> tmp(fifo_file, O_WRONLY);
-	double message[2] = {-42069, -42069};
+	double message[2] = {42069, 42069};
 	size_t chars_sent = tmp.pipeOut(message);
-	tmp.pipeOut((double (&)[2])message);
+	//tmp.pipeOut((double (&)[2])message);
 //	if (chars_sent != strlen(message)) {
 //		//printf("send_detect() : Tried to send %ld chars, actually sent %ld\n", strlen(message), chars_sent);
 //	} else {
@@ -101,7 +105,7 @@ void Messenger::send_angle(double azimuth, double elevation, std::string detect_
 	simplePipe<double, 2> tmp(fifo_file, O_WRONLY);
 	double message[2] = {azimuth, elevation};
 	size_t chars_sent = tmp.pipeOut(message);
-	tmp.pipeOut((double (&)[2])message);
+	//tmp.pipeOut((double (&)[2])message);
 
 	//size_t chars_sent = send( sock, message, strlen(message), 0 );
 //	if (chars_sent != strlen(message)) {

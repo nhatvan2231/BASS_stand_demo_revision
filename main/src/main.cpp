@@ -123,8 +123,8 @@ int main_control(Autopilot_Interface &api){
 	// Stepper Pipe Out
 	const double stepper_init[3] = {361, -1, 0}; 
 	const double stepper_mid[3] = {177, 0.0050, 1}; 
-	const double stepper_right[3] = {132, 0.0050, 1}; 
-	const double stepper_left[3] = {222, 0.0050, 1}; 
+	const double stepper_right[3] = {132, 0.01, 1}; 
+	const double stepper_left[3] = {222, 0.01, 1}; 
 
 	// FSM 
 	uint8_t cur_state = 0;
@@ -135,42 +135,6 @@ int main_control(Autopilot_Interface &api){
 	printf("\nDRONE DEMO START\n");
 
 	while(true){
-		//printf("Current angle: %f Current action: %f\n", stepper_in[0], stepper_in[1]);
-		switch(cur_state){
-			case 0:
-				if (!status.init) break;
-				printf("INITIALIZING...\n");
-				ioctl(zylia, 0x00000205, led_white);
-				std::copy(std::begin(stepper_init), std::end(stepper_init), std::begin(stepper_out));
-				write = true;
-				next_state = 1;
-				break;
-			case 1:
-				printf("GOTO MIDDLE\n");
-				std::copy(std::begin(stepper_mid), std::end(stepper_mid), std::begin(stepper_out));
-				status.init = false;
-				write = true;
-				next_state = 2;
-				break;
-			case 2:
-				if (!status.scan) break;
-				printf("GOTO RIGHT\n");
-				ioctl(zylia, 0x00000205, led_green);
-				std::copy(std::begin(stepper_right), std::end(stepper_right), std::begin(stepper_out));
-				write = true;
-				next_state = 3;
-				break;
-			case 3:
-				if (!status.scan) break;
-				printf("GOTO LEFT\n");
-				ioctl(zylia, 0x00000205, led_green);
-				std::copy(std::begin(stepper_left), std::end(stepper_left), std::begin(stepper_out));
-				write = true;
-				next_state = 2;
-				break;
-			default:
-				break;
-		}
 		// FIFO read
 		while(true){
 			int read_stepper = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
@@ -185,7 +149,7 @@ int main_control(Autopilot_Interface &api){
 			if(read_detect > 0 && status.detect){
 				//TODO
 				write = signal_detection(zylia, noah_in[0], stepper_in[0], checkpoint, stepper_out);
-				break;
+				if(write) break;
 			}
 			if(read_stepper > 0 && stepper_in[1] <= 0) {
 				printf("Goal reach\n");
@@ -193,6 +157,44 @@ int main_control(Autopilot_Interface &api){
 				break;
 			} 
 			usleep(1000);
+		}
+		//printf("Current angle: %f Current action: %f\n", stepper_in[0], stepper_in[1]);
+		if(!write){
+			switch(cur_state){
+				case 0:
+					if (!status.init) break;
+					printf("INITIALIZING...\n");
+					ioctl(zylia, 0x00000205, led_white);
+					std::copy(std::begin(stepper_init), std::end(stepper_init), std::begin(stepper_out));
+					write = true;
+					next_state = 1;
+					break;
+				case 1:
+					printf("GOTO MIDDLE\n");
+					std::copy(std::begin(stepper_mid), std::end(stepper_mid), std::begin(stepper_out));
+					status.init = false;
+					write = true;
+					next_state = 2;
+					break;
+				case 2:
+					if (!status.scan) break;
+					printf("GOTO RIGHT\n");
+					ioctl(zylia, 0x00000205, led_green);
+					std::copy(std::begin(stepper_right), std::end(stepper_right), std::begin(stepper_out));
+					write = true;
+					next_state = 3;
+					break;
+				case 3:
+					if (!status.scan) break;
+					printf("GOTO LEFT\n");
+					ioctl(zylia, 0x00000205, led_green);
+					std::copy(std::begin(stepper_left), std::end(stepper_left), std::begin(stepper_out));
+					write = true;
+					next_state = 2;
+					break;
+				default:
+					break;
+			}
 		}
 
 		// FIFO write
@@ -219,18 +221,30 @@ bool signal_detection(int zylia, double detect_angle, double cur_angle, double &
 	double d_angle = detect_angle;
 	const int led_red[1] = {0x0000FF};
 	const int led_yellow[1] = {0x00FFFF};
+	const int led_green[1] = {0x00FF00};
 	if(d_angle == -42069){
+		printf("Error: choosing to ignore.\n");
+		ioctl(zylia, 0x00000205, led_green);
+		stepper_out[0] = 177;
+		stepper_out[1] = 0.01;
+		stepper_out[2] = 1;
+		return true;
+	}
+	if(d_angle == 42069){
 		printf("Waiting for a trigger\n");
 		ioctl(zylia, 0x00000205, led_yellow);
+		stepper_out[0] = cur_angle;
+		stepper_out[1] = 42069;
+		stepper_out[2] = 42069;
 		checkpoint = cur_angle;
-		return false;
+		return true;
 	}
 	if (fabs(d_angle) <= 180){
 		ioctl(zylia, 0x00000205, led_red);
 		d_angle = fmod((checkpoint + (360 + d_angle)), 360.0);
 		printf("RECEIVED -> Angle: %f\n", d_angle);
 		stepper_out[0] = d_angle;
-		stepper_out[1] = 0.0025;
+		stepper_out[1] = 0.0045;
 		stepper_out[2] = 5;
 		return true;
 	}
@@ -298,8 +312,7 @@ void play_tune(Autopilot_Interface &api, double tune_id)
 }
 
 //  MOTOR TEST 
-void
-motor_start(Autopilot_Interface &api, bool motors)
+void motor_start(Autopilot_Interface &api, bool motors)
 {
 	// Legs up/down
 	// Motor test On/Off
@@ -307,7 +320,7 @@ motor_start(Autopilot_Interface &api, bool motors)
 		api.landing_gear(true);
 		for (int i = 0; i < 5; i++){
 			api.motor_start(true, i);
-			this_thread::sleep_for(chrono::milliseconds(10));
+			this_thread::sleep_for(chrono::milliseconds(5));
 		}
 	}
 	else {

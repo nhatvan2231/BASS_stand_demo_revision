@@ -1,1 +1,1 @@
-/usr/bin/c++  -pthread CMakeFiles/demo_main.dir/main.cpp.o -o demo_main  ../libs/libdemo_lib.a 
+/usr/bin/c++   -pthread   CMakeFiles/demo_main.dir/main.cpp.o  -o demo_main  ../libs/libdemo_lib.a 
