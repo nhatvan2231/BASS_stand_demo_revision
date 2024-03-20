@@ -82,9 +82,9 @@ int main_control(Autopilot_Interface &api){
 	// Set color: icotl(zylia, 0x00000205, <array, 0xBGR>)
 	char zylia_path[] = "/dev/zylia-zm-1_0";
 	int zylia = zylia_setup(zylia_path);
-	int led_red[1] = {0x0000FF};
-	int led_green[1] = {0x00FF00};
-	int led_white[1] = {0xFFFFFF};
+	const int led_red[1] = {0x0000FF};
+	const int led_green[1] = {0x00FF00};
+	const int led_white[1] = {0xFFFFFF};
 
 
 	/* START NAMED PIPES
@@ -121,45 +121,20 @@ int main_control(Autopilot_Interface &api){
 	bool write = false; // Pipe write flag
 
 	// Stepper Pipe Out
-	double stepper_init[3] = {361, -1, 0}; 
-	double stepper_mid[3] = {177, 0.0075, 1}; 
-	double stepper_right[3] = {132, 0.0075, 1}; 
-	double stepper_left[3] = {222, 0.0075, 1}; 
+	const double stepper_init[3] = {361, -1, 0}; 
+	const double stepper_mid[3] = {177, 0.0050, 1}; 
+	const double stepper_right[3] = {132, 0.0050, 1}; 
+	const double stepper_left[3] = {222, 0.0050, 1}; 
 
 	// FSM 
 	uint8_t cur_state = 0;
 	uint8_t next_state = 0;
 	sys_status status;
 
-
+	double checkpoint;
 	printf("\nDRONE DEMO START\n");
 
 	while(true){
-		// FIFO read
-		while(true){
-			int read_stepper = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
-			int read_gui = gui_simpleIn.pipeIn((uint16_t (&)[1])gui_in);
-			int read_detec = noah_simpleIn.pipeIn((double (&)[2])noah_in);
-
-			//int read_detection = detection_simpleIn.pipeIn((bool (&)[1])detec_in);
-			if(read_gui > 0){
-				status = gui_message_handler(api, gui_in, status, cur_state);
-				//printf("Out: %d %d %d\n", status.init, status.scan, status.motor);
-				break;
-			}
-			if(read_detec > 0 && status.detect){
-				//TODO
-				signal_detection(noah_simpleIn, noah_in, stepper_in[0], stepper_out, zylia);
-			}
-			if(read_stepper > 0 && stepper_in[1] <= 0) {
-				printf("Goal reach\n");
-				cur_state = next_state;
-				break;
-			} 
-			usleep(1000);
-		}
-
-
 		//printf("Current angle: %f Current action: %f\n", stepper_in[0], stepper_in[1]);
 		switch(cur_state){
 			case 0:
@@ -167,14 +142,12 @@ int main_control(Autopilot_Interface &api){
 				printf("INITIALIZING...\n");
 				ioctl(zylia, 0x00000205, led_white);
 				std::copy(std::begin(stepper_init), std::end(stepper_init), std::begin(stepper_out));
-				detec_out = false;
 				write = true;
 				next_state = 1;
 				break;
 			case 1:
 				printf("GOTO MIDDLE\n");
 				std::copy(std::begin(stepper_mid), std::end(stepper_mid), std::begin(stepper_out));
-				detec_out = false;
 				status.init = false;
 				write = true;
 				next_state = 2;
@@ -198,6 +171,29 @@ int main_control(Autopilot_Interface &api){
 			default:
 				break;
 		}
+		// FIFO read
+		while(true){
+			int read_stepper = stepper_simpleIn.pipeIn((double (&)[2])stepper_in);
+			int read_gui = gui_simpleIn.pipeIn((uint16_t (&)[1])gui_in);
+			int read_detect = noah_simpleIn.pipeIn((double (&)[2])noah_in);
+
+			if(read_gui > 0){
+				status = gui_message_handler(api, gui_in, status, cur_state);
+				//printf("Out: %d %d %d\n", status.init, status.scan, status.motor);
+				break;
+			}
+			if(read_detect > 0 && status.detect){
+				//TODO
+				write = signal_detection(zylia, noah_in[0], stepper_in[0], checkpoint, stepper_out);
+				break;
+			}
+			if(read_stepper > 0 && stepper_in[1] <= 0) {
+				printf("Goal reach\n");
+				cur_state = next_state;
+				break;
+			} 
+			usleep(1000);
+		}
 
 		// FIFO write
 		if(write){
@@ -205,13 +201,6 @@ int main_control(Autopilot_Interface &api){
 			int write_bytes = stepper_simpleOut.pipeOut((double (&)[3])stepper_out);
 			while(write_bytes <= 0){
 				write_bytes = stepper_simpleOut.pipeOut((double (&)[3])stepper_out);
-				printf("Reattempting to write\n");
-			}
-
-			// Write to detection
-			write_bytes = detection_simpleOut.pipeOut((bool (&)[1])detec_out); 
-			while(write_bytes <= 0){
-				write_bytes = detection_simpleOut.pipeOut((bool (&)[1])detec_out); 
 				printf("Reattempting to write\n");
 			}
 			write = false;
@@ -225,6 +214,27 @@ int main_control(Autopilot_Interface &api){
 };
 
 
+// Detection scheme
+bool signal_detection(int zylia, double detect_angle, double cur_angle, double &checkpoint, double (&stepper_out)[3]){
+	double d_angle = detect_angle;
+	const int led_red[1] = {0x0000FF};
+	const int led_yellow[1] = {0x00FFFF};
+	if(d_angle == -42069){
+		printf("Waiting for a trigger\n");
+		ioctl(zylia, 0x00000205, led_yellow);
+		checkpoint = cur_angle;
+		return false;
+	}
+	if (fabs(d_angle) <= 180){
+		ioctl(zylia, 0x00000205, led_red);
+		d_angle = fmod((checkpoint + (360 + d_angle)), 360.0);
+		printf("RECEIVED -> Angle: %f\n", d_angle);
+		stepper_out[0] = d_angle;
+		stepper_out[1] = 0.0025;
+		stepper_out[2] = 5;
+		return true;
+	}
+}
 // Handle gui interface
 sys_status gui_message_handler(Autopilot_Interface &api, uint16_t gui_in, sys_status cur_status, uint8_t &cur_state){
         sys_status status = cur_status;
@@ -241,7 +251,7 @@ sys_status gui_message_handler(Autopilot_Interface &api, uint16_t gui_in, sys_st
                         if (cur_state < 2) break;
                         play_tune(api, 1);
                         status.scan = !status.scan;
-			status.detec = !status.detec;
+			status.detect = !status.detect;
                         if(status.scan == false) cur_state = 1;
                         //printf("SCAN: %d\n", status.scan);
                         break;
@@ -388,10 +398,10 @@ int zylia_setup(char zylia_path[]){
 		sleep_for(milliseconds(10));
 	}
 
-	int led_manual[1] = {1};
-	int led_white[1] = {0xFFFFFF};
-	int setmode = 0x00000203;
-	int setcolor = 0x00000205;
+	const int led_manual[1] = {1};
+	const int led_white[1] = {0xFFFFFF};
+	const int setmode = 0x00000203;
+	const int setcolor = 0x00000205;
 	ioctl(fd, setmode, led_manual);
 	ioctl(fd, setcolor, led_white);
 	return fd;

@@ -33,7 +33,7 @@ struct sys_status{
 	bool init = false;
 	bool scan = false;
 	bool motor = false;
-	bool detec = false;
+	bool detect = false;
 };
 
 int main(int argc, char **argv);
@@ -53,6 +53,8 @@ int main_control(Autopilot_Interface &autopilot_interface);
 void motor_start(Autopilot_Interface &autopilot_interface, bool motors);
 
 void play_tune(Autopilot_Interface &autopilot_interface, double msg);
+
+bool signal_detection(int zylia, double detect_angle, double cur_angle, double &checkpoint, double (&stepper_out)[3]);
 
 // quit handler
 Autopilot_Interface *autopilot_interface_quit;
