@@ -80,58 +80,60 @@ def play_tune(tune):
     #messageOut[2] = tune;
     simplePipeOut(FIFO_OUT)
 
-def battery_callback(): # Battery status
-    # TODO
-    while(True):
-        #print(messageIn[0])
-        batt_voltage = messageIn[0]
-        label_battery_status_update.config(text = "{0} V".format(batt_voltage), font = ("Times", 16,'bold'), relief= FLAT, fg = 'red', bg = '#FFFFFF')
-        #if batt_voltage <= 20.0:
-            #messageOut[3] = 0
-            #simplePipeOut(FIFO_OUT)
-            #low_battery_voltage()
-        time.sleep(1)
-
-
-#pop up warning for low battery
-def low_battery_voltage(): 
-    #play_tune(2)
-    warning = Toplevel(window, bg = 'red')
-    warning.title('WARNING!')
-    warning.wm_attributes('-fullscreen',"True")
-    warning.geometry('800x480')
-    canvas = tkinter.Canvas(warning, bg = 'black', width = 800, height = 480)
-    canvas.create_polygon(-100, 0, 0, 0, -100, 480, -200, 480, fill = 'yellow', tags = 'polygon')
-    canvas.create_polygon(100, 0, 200, 0, 100, 480, 0, 480, fill = 'yellow', tags = 'polygon')
-    canvas.create_polygon(300, 0, 400, 0, 300, 480, 200, 480, fill = 'yellow', tags = 'polygon')
-    canvas.create_polygon(500, 0, 600, 0, 500, 480, 400, 480, fill = 'yellow', tags = 'polygon')
-    canvas.create_rectangle(0,120,750,280, fill = 'yellow')
-    canvas.create_text(300, 200, text = 'BATTERY LOW!\nUNPLUG BATTERY', justify = tk.CENTER,  fill='red', font = ('times', 42, 'bold'))
-    canvas.pack()
-    GPIO.cleanup()
-    def first():
-        canvas.configure(bg = 'yellow')
-        canvas.itemconfig('polygon', fill = 'black')
-        warning.after(300, second)
-    def second():
-        canvas.configure(bg = 'black')
-        canvas.itemconfig('polygon', fill = 'yellow')
-        warning.after(300, first)
-    first()
-    warning.mainloop()
+#def battery_callback(): # Battery status
+#    # TODO
+#    while(True):
+#        #print(messageIn[0])
+#        batt_voltage = messageIn[0]
+#        label_battery_status_update.config(text = "{0} V".format(batt_voltage), font = ("Times", 16,'bold'), relief= FLAT, fg = 'red', bg = '#FFFFFF')
+#        #if batt_voltage <= 20.0:
+#            #messageOut[3] = 0
+#            #simplePipeOut(FIFO_OUT)
+#            #low_battery_voltage()
+#        time.sleep(1)
+#
+#
+##pop up warning for low battery
+#def low_battery_voltage(): 
+#    #play_tune(2)
+#    warning = Toplevel(window, bg = 'red')
+#    warning.title('WARNING!')
+#    warning.wm_attributes('-fullscreen',"True")
+#    warning.geometry('800x480')
+#    canvas = tkinter.Canvas(warning, bg = 'black', width = 800, height = 480)
+#    canvas.create_polygon(-100, 0, 0, 0, -100, 480, -200, 480, fill = 'yellow', tags = 'polygon')
+#    canvas.create_polygon(100, 0, 200, 0, 100, 480, 0, 480, fill = 'yellow', tags = 'polygon')
+#    canvas.create_polygon(300, 0, 400, 0, 300, 480, 200, 480, fill = 'yellow', tags = 'polygon')
+#    canvas.create_polygon(500, 0, 600, 0, 500, 480, 400, 480, fill = 'yellow', tags = 'polygon')
+#    canvas.create_rectangle(0,120,750,280, fill = 'yellow')
+#    canvas.create_text(300, 200, text = 'BATTERY LOW!\nUNPLUG BATTERY', justify = tk.CENTER,  fill='red', font = ('times', 42, 'bold'))
+#    canvas.pack()
+#    GPIO.cleanup()
+#    def first():
+#        canvas.configure(bg = 'yellow')
+#        canvas.itemconfig('polygon', fill = 'black')
+#        warning.after(300, second)
+#    def second():
+#        canvas.configure(bg = 'black')
+#        canvas.itemconfig('polygon', fill = 'yellow')
+#        warning.after(300, first)
+#    first()
+#    warning.mainloop()
 
 
 # Setting up GUI Window
 window = tk.Tk()
 window.title("BOX-DRONE INTERFACE")
-window.geometry("800x480")
+#window.geometry("800x480")
+window.geometry("640x480")
+
 frame = Frame(window, bg='#FFFFFF', borderwidth=0)
 frame.pack(expand=1, fill = BOTH)
 
 #NCPA Image
-logo = PhotoImage(file = NCPA_LOGO_FILE)
-label_logo = Label(frame, image=logo, font = ("Times", 18), relief = 'flat',borderwidth = 0)
-label_logo.grid(row=0, column=0, columnspan = 3)
+#logo = PhotoImage(file = NCPA_LOGO_FILE)
+#label_logo = Label(frame, image=logo, font = ("Times", 18), relief = 'flat',borderwidth = 0)
+#label_logo.grid(row=0, column=0, columnspan = 3)
 
 #Displaying Battery Status on GUI
 #label_battery = Label(frame, text = 'BATTERY STATUS: ', font = ("Times", 16,'bold'), relief= FLAT, fg = 'red', bg = '#FFFFFF')
@@ -152,11 +154,11 @@ yellow = Button(frame, text = 'HOVER ON/OFF', command = yellow_button, font = (1
 yellow.grid(row=5, column = 1, pady=5, padx = 10)
 
 purple = Button(frame, text = '    INITIALIZE    ', command = purple_button, font = (16), activebackground = 'magenta', bg = 'magenta', height = 3)
-purple.grid(row=5, column = 2, pady=5, padx = 10)
+purple.grid(row=5, column = 2, pady=10, padx = 10)
 
 
-battery_thread = threading.Thread(target=battery_callback)
-battery_thread.start()
+#battery_thread = threading.Thread(target=battery_callback)
+#battery_thread.start()
 
 pipeIn = threading.Thread(target=simplePipeIn, args=(FIFO_IN,))
 pipeIn.start()
