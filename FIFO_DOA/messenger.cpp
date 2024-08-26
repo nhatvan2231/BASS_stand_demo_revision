@@ -33,11 +33,11 @@ Messenger::Messenger()
 }
 
 // Constructor with IP address and port number specified
-Messenger::Messenger(const char* filename, int)
+Messenger::Messenger(const char* filename, int) : perm(new simplePipe<float, 1>(filename, O_WRONLY))
 {
 	strcpy(fifo_file, filename);
+	//perm = new simplePipe<float, 1>(fifo_file, O_WRONLY);
 }
-
 // Sends a timestamp message, returns timestamp
 std::string Messenger::send_time()
 {
@@ -129,6 +129,21 @@ std::string Messenger::get_timestamp()
 	sprintf(ts_char, "%s%03d", tmp_ts, millis);
 
 	return std::string(ts_char);
+}
+
+//Harley: A method to help commuicate from FIFO_DOA/main.cpp to channelvisualiser.py
+void Messenger::send_measurement(float measurement, int length) {
+	//simplePipe<float, 1> tmp(fifo_file, O_WRONLY);
+	float message[1] = { measurement };
+	size_t chars_sent = perm->pipeOut(message);
+
+	//ZDAQ_SAMPLES = 20480
+	//simplePipe<float, 20480> tmp(fifo_file, O_WRONLY);
+	//float message[20480];
+	//for (int i = 0; i < 20480; i++) {
+		//message[i] = measurement[i];
+	//}
+	//size_t chars_sent = tmp.pipeOut(message);
 }
 
 // private function, opens a socket

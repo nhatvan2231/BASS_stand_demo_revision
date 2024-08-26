@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ncpa/BASS_stand_demo_revision/main
+CMAKE_SOURCE_DIR = /home/ncpa/BASS_stand_demo_harley_2/main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ncpa/BASS_stand_demo_revision/main/build
+CMAKE_BINARY_DIR = /home/ncpa/BASS_stand_demo_harley_2/main/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles /home/ncpa/BASS_stand_demo_revision/main/build/libs/CMakeFiles/progress.marks
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles 0
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles /home/ncpa/BASS_stand_demo_harley_2/main/build/libs/CMakeFiles/progress.marks
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/clean
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/preinstall
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/preinstall
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libs/CMakeFiles/demo_lib.dir/rule:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/CMakeFiles/demo_lib.dir/rule
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f CMakeFiles/Makefile2 libs/CMakeFiles/demo_lib.dir/rule
 .PHONY : libs/CMakeFiles/demo_lib.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ demo_lib: libs/CMakeFiles/demo_lib.dir/rule
 
 # fast build rule for target.
 demo_lib/fast:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/build
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/build
 .PHONY : demo_lib/fast
 
 drone_demo/src/autopilot_interface.o: drone_demo/src/autopilot_interface.cpp.o
@@ -131,7 +131,7 @@ drone_demo/src/autopilot_interface.o: drone_demo/src/autopilot_interface.cpp.o
 
 # target to build an object file
 drone_demo/src/autopilot_interface.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o
 .PHONY : drone_demo/src/autopilot_interface.cpp.o
 
 drone_demo/src/autopilot_interface.i: drone_demo/src/autopilot_interface.cpp.i
@@ -140,7 +140,7 @@ drone_demo/src/autopilot_interface.i: drone_demo/src/autopilot_interface.cpp.i
 
 # target to preprocess a source file
 drone_demo/src/autopilot_interface.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i
 .PHONY : drone_demo/src/autopilot_interface.cpp.i
 
 drone_demo/src/autopilot_interface.s: drone_demo/src/autopilot_interface.cpp.s
@@ -149,7 +149,7 @@ drone_demo/src/autopilot_interface.s: drone_demo/src/autopilot_interface.cpp.s
 
 # target to generate assembly for a file
 drone_demo/src/autopilot_interface.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s
 .PHONY : drone_demo/src/autopilot_interface.cpp.s
 
 drone_demo/src/serial_port.o: drone_demo/src/serial_port.cpp.o
@@ -158,7 +158,7 @@ drone_demo/src/serial_port.o: drone_demo/src/serial_port.cpp.o
 
 # target to build an object file
 drone_demo/src/serial_port.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o
 .PHONY : drone_demo/src/serial_port.cpp.o
 
 drone_demo/src/serial_port.i: drone_demo/src/serial_port.cpp.i
@@ -167,7 +167,7 @@ drone_demo/src/serial_port.i: drone_demo/src/serial_port.cpp.i
 
 # target to preprocess a source file
 drone_demo/src/serial_port.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i
 .PHONY : drone_demo/src/serial_port.cpp.i
 
 drone_demo/src/serial_port.s: drone_demo/src/serial_port.cpp.s
@@ -176,7 +176,7 @@ drone_demo/src/serial_port.s: drone_demo/src/serial_port.cpp.s
 
 # target to generate assembly for a file
 drone_demo/src/serial_port.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s
 .PHONY : drone_demo/src/serial_port.cpp.s
 
 drone_demo/src/udp_port.o: drone_demo/src/udp_port.cpp.o
@@ -185,7 +185,7 @@ drone_demo/src/udp_port.o: drone_demo/src/udp_port.cpp.o
 
 # target to build an object file
 drone_demo/src/udp_port.cpp.o:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
 .PHONY : drone_demo/src/udp_port.cpp.o
 
 drone_demo/src/udp_port.i: drone_demo/src/udp_port.cpp.i
@@ -194,7 +194,7 @@ drone_demo/src/udp_port.i: drone_demo/src/udp_port.cpp.i
 
 # target to preprocess a source file
 drone_demo/src/udp_port.cpp.i:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i
 .PHONY : drone_demo/src/udp_port.cpp.i
 
 drone_demo/src/udp_port.s: drone_demo/src/udp_port.cpp.s
@@ -203,7 +203,7 @@ drone_demo/src/udp_port.s: drone_demo/src/udp_port.cpp.s
 
 # target to generate assembly for a file
 drone_demo/src/udp_port.cpp.s:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(MAKE) -f libs/CMakeFiles/demo_lib.dir/build.make libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s
 .PHONY : drone_demo/src/udp_port.cpp.s
 
 # Help Target
@@ -235,6 +235,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

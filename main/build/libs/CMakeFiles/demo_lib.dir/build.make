@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ncpa/BASS_stand_demo_revision/main
+CMAKE_SOURCE_DIR = /home/ncpa/BASS_stand_demo_harley_2/main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ncpa/BASS_stand_demo_revision/main/build
+CMAKE_BINARY_DIR = /home/ncpa/BASS_stand_demo_harley_2/main/build
 
 # Include any dependencies generated for this target.
 include libs/CMakeFiles/demo_lib.dir/depend.make
@@ -59,42 +59,42 @@ include libs/CMakeFiles/demo_lib.dir/flags.make
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o: libs/CMakeFiles/demo_lib.dir/flags.make
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o: ../libs/drone_demo/src/autopilot_interface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o -c /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o"
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o -c /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.cpp
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.i
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.s
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o: libs/CMakeFiles/demo_lib.dir/flags.make
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o: ../libs/drone_demo/src/serial_port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o -c /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o"
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o -c /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.cpp
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.i
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.s
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o: libs/CMakeFiles/demo_lib.dir/flags.make
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o: ../libs/drone_demo/src/udp_port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o -c /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o"
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o -c /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.cpp
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.cpp > CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.i
 
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.cpp -o CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.s
 
 # Object files for target demo_lib
 demo_lib_OBJECTS = \
@@ -110,9 +110,9 @@ libs/libdemo_lib.a: libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.
 libs/libdemo_lib.a: libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
 libs/libdemo_lib.a: libs/CMakeFiles/demo_lib.dir/build.make
 libs/libdemo_lib.a: libs/CMakeFiles/demo_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ncpa/BASS_stand_demo_revision/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libdemo_lib.a"
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && $(CMAKE_COMMAND) -P CMakeFiles/demo_lib.dir/cmake_clean_target.cmake
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_lib.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ncpa/BASS_stand_demo_harley_2/main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libdemo_lib.a"
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && $(CMAKE_COMMAND) -P CMakeFiles/demo_lib.dir/cmake_clean_target.cmake
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo_lib.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 libs/CMakeFiles/demo_lib.dir/build: libs/libdemo_lib.a
@@ -120,10 +120,10 @@ libs/CMakeFiles/demo_lib.dir/build: libs/libdemo_lib.a
 .PHONY : libs/CMakeFiles/demo_lib.dir/build
 
 libs/CMakeFiles/demo_lib.dir/clean:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build/libs && $(CMAKE_COMMAND) -P CMakeFiles/demo_lib.dir/cmake_clean.cmake
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build/libs && $(CMAKE_COMMAND) -P CMakeFiles/demo_lib.dir/cmake_clean.cmake
 .PHONY : libs/CMakeFiles/demo_lib.dir/clean
 
 libs/CMakeFiles/demo_lib.dir/depend:
-	cd /home/ncpa/BASS_stand_demo_revision/main/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ncpa/BASS_stand_demo_revision/main /home/ncpa/BASS_stand_demo_revision/main/libs /home/ncpa/BASS_stand_demo_revision/main/build /home/ncpa/BASS_stand_demo_revision/main/build/libs /home/ncpa/BASS_stand_demo_revision/main/build/libs/CMakeFiles/demo_lib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ncpa/BASS_stand_demo_harley_2/main/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ncpa/BASS_stand_demo_harley_2/main /home/ncpa/BASS_stand_demo_harley_2/main/libs /home/ncpa/BASS_stand_demo_harley_2/main/build /home/ncpa/BASS_stand_demo_harley_2/main/build/libs /home/ncpa/BASS_stand_demo_harley_2/main/build/libs/CMakeFiles/demo_lib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : libs/CMakeFiles/demo_lib.dir/depend
 

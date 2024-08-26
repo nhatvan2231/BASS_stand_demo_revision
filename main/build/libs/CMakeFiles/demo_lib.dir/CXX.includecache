@@ -802,15 +802,15 @@ mavlink_types.h
 mavlink_helpers.h
 ../libs/mavlink/include/mavlink/v2.0/mavlink_helpers.h
 
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.cpp
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.cpp
 autopilot_interface.h
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.h
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.h
 
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.cpp
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.cpp
 serial_port.h
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.h
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.h
 
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.cpp
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.cpp
 udp_port.h
-/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.h
+/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.h
 

@@ -77,6 +77,11 @@ Stater stats(N_bins, 2, 0.05);
 Messenger* m;
 string* detect_ts;
 
+//Harley: A new messenger to communicate with channelvisualiser.py
+//Messenger* m2;
+//trying out m3
+//Messenger* m3;
+
 // Zdaq object pointer
 Zdaq* daq;
 
@@ -106,6 +111,18 @@ void save_history(float* buff)
 	memcpy(algo_head, buff, sizeof(float)*N_CHAN*ZDAQ_SAMPLES);
 	backtrack_lock.unlock();
 
+	//Harley: Here we try to select a single channel and send the measurements to channelvisualiser.py
+	int channeloffset = 0;
+	float chansamples[ZDAQ_SAMPLES];
+	int decimation = 10;
+	/*for (int i = 0; i < ZDAQ_SAMPLES; i += decimation) { //UNCOMMENT
+		chansamples[i] = buff[N_CHAN * i + channeloffset];
+		m3->send_measurement(chansamples[i], ZDAQ_SAMPLES);
+	}*/
+	//printf("Sending measurement: %f\n", chansamples[ZDAQ_SAMPLES-1]);
+
+	//m2->send_measurement(chansamples[0], ZDAQ_SAMPLES);
+	//m3->send_measurement(chansamples[0], ZDAQ_SAMPLES);
 	/*
 	history = current;
 	current += N_CHAN*ZDAQ_SAMPLES;
@@ -604,6 +621,9 @@ int main(int argc, char* argv[])
 
 	// TODO: Create messenger object
 	m = new Messenger();
+	// Harley: instantiate m2 with link to fifo for channelvis
+	//m2 = new Messenger("/tmp/channelvis_FTM", 4);
+	//m3 = new Messenger("/tmp/channelvis_FTP", 4);
 
 	// Create detector thread
 	thread dt_thread(detector_thread);

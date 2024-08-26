@@ -182,5 +182,5 @@ src/CMakeFiles/demo_main.dir/main.cpp.o
  ../libs/mavlink/include/mavlink/v2.0/mavlink_sha256.h
  ../libs/mavlink/include/mavlink/v2.0/mavlink_types.h
  ../libs/mavlink/include/mavlink/v2.0/protocol.h
- /home/ncpa/BASS_stand_demo_revision/main/src/main.cpp
- /home/ncpa/BASS_stand_demo_revision/main/src/main.h
+ /home/ncpa/BASS_stand_demo_harley_2/main/src/main.cpp
+ /home/ncpa/BASS_stand_demo_harley_2/main/src/main.h

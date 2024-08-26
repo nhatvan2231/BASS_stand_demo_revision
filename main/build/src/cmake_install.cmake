@@ -1,4 +1,4 @@
-# Install script for directory: /home/ncpa/BASS_stand_demo_revision/main/src
+# Install script for directory: /home/ncpa/BASS_stand_demo_harley_2/main/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

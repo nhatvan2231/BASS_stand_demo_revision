@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <mutex>
 #include <alsa/asoundlib.h>
+#include "messenger.h"
 
 #define DEFAULT_NUM_SAMPLES 40960
 #define DEFAULT_NUM_CHANNELS 19
@@ -47,6 +48,7 @@ public:
 	zdaq_read_t read();
 
 private:
+	Messenger* m;
 	int n_channels, n_samples;
 	int input_type;
 

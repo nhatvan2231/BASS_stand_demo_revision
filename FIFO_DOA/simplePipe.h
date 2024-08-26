@@ -25,7 +25,7 @@ class simplePipe {
 
 				// Check if the file is a FIFO
 				if(fstat(fifo, &st) && !S_ISFIFO(st.st_mode)) {
-					fprintf(stderr, "File exists but is not a named pipe.\n");
+					fprintf(stderr, "%s: File exists but is not a named pipe.\n", fifo_filename.c_str());
 					close(fifo);
 					return;
 				}

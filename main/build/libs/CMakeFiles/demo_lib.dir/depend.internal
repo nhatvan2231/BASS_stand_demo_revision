@@ -179,7 +179,7 @@ libs/CMakeFiles/demo_lib.dir/drone_demo/src/autopilot_interface.cpp.o
  ../libs/mavlink/include/mavlink/v2.0/mavlink_sha256.h
  ../libs/mavlink/include/mavlink/v2.0/mavlink_types.h
  ../libs/mavlink/include/mavlink/v2.0/protocol.h
- /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/autopilot_interface.cpp
+ /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/autopilot_interface.cpp
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o
  ../libs/drone_demo/include/generic_port.h
  ../libs/drone_demo/include/serial_port.h
@@ -358,7 +358,7 @@ libs/CMakeFiles/demo_lib.dir/drone_demo/src/serial_port.cpp.o
  ../libs/mavlink/include/mavlink/v2.0/mavlink_sha256.h
  ../libs/mavlink/include/mavlink/v2.0/mavlink_types.h
  ../libs/mavlink/include/mavlink/v2.0/protocol.h
- /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/serial_port.cpp
+ /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/serial_port.cpp
 libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
  ../libs/drone_demo/include/generic_port.h
  ../libs/drone_demo/include/udp_port.h
@@ -537,4 +537,4 @@ libs/CMakeFiles/demo_lib.dir/drone_demo/src/udp_port.cpp.o
  ../libs/mavlink/include/mavlink/v2.0/mavlink_sha256.h
  ../libs/mavlink/include/mavlink/v2.0/mavlink_types.h
  ../libs/mavlink/include/mavlink/v2.0/protocol.h
- /home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/src/udp_port.cpp
+ /home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/src/udp_port.cpp

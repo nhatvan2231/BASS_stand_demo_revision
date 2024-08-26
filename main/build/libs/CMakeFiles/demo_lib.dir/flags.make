@@ -6,5 +6,5 @@ CXX_FLAGS =  -pthread   -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ncpa/BASS_stand_demo_revision/main/libs/mavlink/include/mavlink/v2.0 -I/home/ncpa/BASS_stand_demo_revision/main/libs/drone_demo/include 
+CXX_INCLUDES = -I/home/ncpa/BASS_stand_demo_harley_2/main/libs/mavlink/include/mavlink/v2.0 -I/home/ncpa/BASS_stand_demo_harley_2/main/libs/drone_demo/include 
 

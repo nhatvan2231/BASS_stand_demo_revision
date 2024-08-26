@@ -814,11 +814,11 @@ mavlink_types.h
 mavlink_helpers.h
 ../libs/mavlink/include/mavlink/v2.0/mavlink_helpers.h
 
-/home/ncpa/BASS_stand_demo_revision/main/src/main.cpp
+/home/ncpa/BASS_stand_demo_harley_2/main/src/main.cpp
 main.h
-/home/ncpa/BASS_stand_demo_revision/main/src/main.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/main.h
 
-/home/ncpa/BASS_stand_demo_revision/main/src/main.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/main.h
 iostream
 -
 stdio.h
@@ -850,11 +850,11 @@ thread
 common/mavlink.h
 -
 autopilot_interface.h
-/home/ncpa/BASS_stand_demo_revision/main/src/autopilot_interface.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/autopilot_interface.h
 serial_port.h
-/home/ncpa/BASS_stand_demo_revision/main/src/serial_port.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/serial_port.h
 udp_port.h
-/home/ncpa/BASS_stand_demo_revision/main/src/udp_port.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/udp_port.h
 simplePipe.h
-/home/ncpa/BASS_stand_demo_revision/main/src/simplePipe.h
+/home/ncpa/BASS_stand_demo_harley_2/main/src/simplePipe.h
 

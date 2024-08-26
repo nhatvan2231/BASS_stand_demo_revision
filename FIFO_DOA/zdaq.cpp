@@ -1,6 +1,6 @@
 #include "zdaq.h"
 
-Zdaq::Zdaq(int input_type, char* source_str, int N_samples)
+Zdaq::Zdaq(int input_type, char* source_str, int N_samples) : m(new Messenger("/tmp/channelvis_FTP", 4))
 {
 	this->input_type = input_type;
 	if(N_samples > 0)
@@ -171,6 +171,7 @@ Zdaq::zdaq_read_t Zdaq::read()
 
 void Zdaq::read_thread()
 {
+	printf("Entering read thread\n");
 	int err;
 	bool is_read_flag = false;					// used for handling read size less than FRAMES_PER_READ when reading PCM files
 	int frames_read = 0;
@@ -193,6 +194,7 @@ void Zdaq::read_thread()
 		}
 
 		// read from the correct device, usb or pcm
+
 		if (input_type) {
 			// usb
 			ZDAQ_LOCK.lock();
@@ -203,14 +205,23 @@ void Zdaq::read_thread()
 				break;
 			} else {
 				frames_read += FRAMES_PER_READ;
+				for (int i = 0; i < err; i += 8) {
+					m->send_measurement(buff_ptr[i * n_channels + 0], 0);
+				}
+				printf("Test measurement: %f\n", buff_ptr[0]);
+
 			}
 		} else {
 			// pcm
 			//usleep(1334); // simulate zylia read delay
-
+			
 			ZDAQ_LOCK.lock();
-			err = fread(buff_ptr, sizeof(float)*n_channels, FRAMES_PER_READ, pcm_file);
+			err = fread(buff_ptr, sizeof(float)*n_channels, FRAMES_PER_READ, pcm_file); //err = number of elements successfully read, each element being an entire sample, for a total number of samples
 			ZDAQ_LOCK.unlock();
+			for (int i = 0; i < err; i += 8) {
+				m->send_measurement(buff_ptr[i * n_channels + 0], 0);
+			}
+			printf("Test measurement: %f\n", buff_ptr[0]);
 
 			frames_read += err;
 			if (feof(pcm_file)) {

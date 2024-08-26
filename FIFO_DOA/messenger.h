@@ -36,7 +36,13 @@ public:
 	// send angle timestamp
 	void send_angle(double, double, std::string);
 
+	//send single float
+	void send_measurement(float, int);
+
+
 private:
+
+	simplePipe<float, 1> *perm;
 	char fifo_file[50];
 	char server_address[50];
 	int server_port;
